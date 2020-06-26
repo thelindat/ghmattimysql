@@ -1,6 +1,6 @@
 import { appendFileSync, openSync, closeSync } from 'fs';
 import { LoggerConfig, OutputDestination, defaultLoggerConfig } from './loggerConfig';
-import { Color, colorize } from './color';
+import { Color } from './color';
 import getTimeStamp from './getTimeStamp';
 import writeConsole from './writeConsole';
 
@@ -31,7 +31,6 @@ class Logger {
   log(msg: string, options: LoggerConfig = {}) {
     const opts = { ...this.defaultConfig, ...options };
     switch (opts.output) {
-      default:
       case OutputDestination.Console:
         writeConsole(msg, opts);
         break;
