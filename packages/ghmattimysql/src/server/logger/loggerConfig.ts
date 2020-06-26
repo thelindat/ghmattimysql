@@ -1,10 +1,10 @@
 import { Color } from './color';
 
 enum OutputDestination {
-  FileAndConsole = <any>'FileAndConsole',
-  Console = <any>'Console',
-  File = <any>'File',
   None = <any>'None',
+  File = <any>'File',
+  Console = <any>'Console',
+  FileAndConsole = <any>'FileAndConsole',
 }
 
 interface LoggerConfig {
