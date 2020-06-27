@@ -33,7 +33,11 @@ class MySQL {
         'HandshakeInitializationPacket',
         'ComPingPacket',
         'ComQueryPacket',
+        'ComQuitPacket',
+        'EmptyPacket',
+        'ErrorPacket',
         'ClientAuthenticationPacket',
+        'ComStatisticsPacket',
       ]});
     } else {
       this.logger.error(`Unexpected configuration of type ${typeof mysqlConfig} received.`);
