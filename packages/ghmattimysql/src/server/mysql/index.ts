@@ -29,7 +29,12 @@ class MySQL {
     this.formatQuery = (sql: QueryOptions): string => `${sql.sql} : ${JSON.stringify(sql.values)}`;
 
     if (typeof mysqlConfig === 'object') {
-      this.pool = createPool({ ...mysqlConfig, debug: ['ComQueryPacket'] });
+      this.pool = createPool({ ...mysqlConfig, debug: [
+        'HandshakeInitializationPacket',
+        'ComPingPacket',
+        'ComQueryPacket',
+        'ClientAuthenticationPacket',
+      ]});
     } else {
       this.logger.error(`Unexpected configuration of type ${typeof mysqlConfig} received.`);
     }
