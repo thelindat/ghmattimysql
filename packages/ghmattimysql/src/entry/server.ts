@@ -6,8 +6,8 @@ import getConfig from '../server/utility/getConfig';
 
 const server = new Server(getConfig());
 
-global.exports('store', (query: string, callback: CFXCallback) => {
-  const invokingResource = GetInvokingResource();
+global.exports('store', (query: string, callback: CFXCallback, resource?: string): void => {
+  const invokingResource = resource || GetInvokingResource();
   const storageId = server.queryStorage.add(query);
   server.logger.info(`[${invokingResource}] Stored [${storageId}] : ${query}`);
   safeInvoke(callback, storageId);
