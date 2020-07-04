@@ -11,6 +11,7 @@ interface LoggerConfig {
   color?: Color;
   tag?: string;
   level?: string;
+  logLevel?: number;
   output?: OutputDestination;
 }
 
@@ -18,6 +19,7 @@ const defaultLoggerConfig: LoggerConfig = {
   color: Color.Default,
   tag: 'ghmattimysql',
   level: '',
+  logLevel: 15,
   output: OutputDestination.None,
 };
 

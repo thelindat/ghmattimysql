@@ -3,6 +3,7 @@ import { LoggerConfig, OutputDestination, defaultLoggerConfig } from './loggerCo
 import { Color } from './color';
 import getTimeStamp from './getTimeStamp';
 import writeConsole from './writeConsole';
+import LogLevel from './logLevel';
 
 class Logger {
   defaultConfig: LoggerConfig;
@@ -41,14 +42,21 @@ class Logger {
         writeConsole(msg, opts);
         this.writeFile(msg, opts);
         break;
+      default:
     }
+  }
+
+  getOutputDestination(logLevel: LogLevel): OutputDestination {
+    /* eslint no-bitwise: ["error", { "allow": ["&", "<<"] }] */
+    const logToConsole = (this.defaultConfig.logLevel & (1 << logLevel)) !== 0;
+    return (logToConsole) ? OutputDestination.FileAndConsole : OutputDestination.File;
   }
 
   error(msg: string, options: LoggerConfig = {}) {
     this.log(msg,
       {
         color: Color.Error,
-        output: OutputDestination.FileAndConsole,
+        output: this.getOutputDestination(LogLevel.Error),
         level: 'ERROR',
         ...options,
       });
@@ -58,7 +66,7 @@ class Logger {
     this.log(msg,
       {
         color: Color.Info,
-        output: OutputDestination.FileAndConsole,
+        output: this.getOutputDestination(LogLevel.Info),
         level: 'INFO',
         ...options,
       });
@@ -68,7 +76,7 @@ class Logger {
     this.log(msg,
       {
         color: Color.Success,
-        output: OutputDestination.FileAndConsole,
+        output: this.getOutputDestination(LogLevel.Success),
         level: 'SUCCESS',
         ...options,
       });
@@ -78,7 +86,7 @@ class Logger {
     this.log(msg,
       {
         color: Color.Warning,
-        output: OutputDestination.FileAndConsole,
+        output: this.getOutputDestination(LogLevel.Warning),
         level: 'WARNING',
         ...options,
       });

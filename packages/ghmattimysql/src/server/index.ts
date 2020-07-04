@@ -18,13 +18,18 @@ class Server {
   queryStorage: QueryStringStorage;
 
   constructor(config: PoolConfig, loggerOverrides: LoggerConfig = {}) {
-    this.logger = new Logger(GetConvar('mysql_debug', 'None'), loggerOverrides);
+    this.logger = new Logger(GetConvar('mysql_debug', 'None'), { ...loggerOverrides, logLevel: GetConvarInt('mysql_log_level', 15) });
     this.profiler = new Profiler({ slowQueryWarningTime: GetConvarInt('mysql_slow_query_warning', 150) }, this.logger);
     this.mysql = new MySQL(config, this.profiler, this.logger);
     this.queryStorage = queryStorage;
   }
 
-  execute(query: string | number, parameters: any | CFXCallback, callback: any | CFXCallback, resource: string) {
+  execute(
+    query: string | number,
+    parameters: any | CFXCallback,
+    callback: any | CFXCallback,
+    resource: string,
+  ) {
     let sql = this.queryStorage.get(query);
     let values = parameters;
     let cb = callback;
