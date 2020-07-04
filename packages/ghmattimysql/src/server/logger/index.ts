@@ -4,6 +4,7 @@ import { Color } from './color';
 import getTimeStamp from './getTimeStamp';
 import writeConsole from './writeConsole';
 import LogLevel from './logLevel';
+import getLoggingFileName from './getLoggingFileName';
 
 class Logger {
   defaultConfig: LoggerConfig;
@@ -17,7 +18,7 @@ class Logger {
 
     if (this.defaultConfig.output === OutputDestination.File
       || this.defaultConfig.output === OutputDestination.FileAndConsole) {
-      this.loggingFile = `./${GetCurrentResourceName()}-${Date.now()}.log`;
+      this.loggingFile = getLoggingFileName();
       closeSync(openSync(this.loggingFile, 'w'));
     }
   }
