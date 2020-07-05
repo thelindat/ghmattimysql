@@ -98,10 +98,17 @@ If set to <code>0</code>, there is no limit to the number of queued connection r
 setting the <code>mysql_connection_string</code>.</p>
 </div><!----><!----><!----><div class="list-group"><div class="list-group-item flex-column align-items-start"><h5 class="mb-1">mysql_debug</h5><span class="description"><p>Possible options are <code>Console</code>, <code>File</code>, <code>FileAndConsole</code> and <code>None</code>.
 In case of a file output, the file will be located in the current working directory
-on starting the server, named like <code>/ghmattimysql-&#x3C;timestamp>.log</code>.
+on starting the server, named like <code>/&#x3C;resourcename>-&#x3C;timestamp>.log</code>. The name of the
+file can be changed by setting <code>mysql_log_file_format</code>.
 (Default: <code>None</code>)</p>
 </span></div><div class="list-group-item flex-column align-items-start"><h5 class="mb-1">mysql_slow_query_warning</h5><span class="description"><p>Sets a limit in millisecondss, queries slower than this limit will be displayed with a warning at the specified location of
 <code>mysql_debug_output</code>, see above (Default: <code>100</code>)</p>
+</span></div><div class="list-group-item flex-column align-items-start"><h5 class="mb-1">mysql_log_level</h5><span class="description"><p>This variable gives control over what goes to the console, and what does not. Add the numbers to get the value to set it to.
+1: Info, 2: Success, 4: Warning, 8: Error. For example you wanted only Info's and Error's appearing in the server console, you would set it to 9.
+(Default: <code>15</code>)</p>
+</span></div><div class="list-group-item flex-column align-items-start"><h5 class="mb-1">mysql_log_file_format</h5><span class="description"><p>Sets the log file format, relative to the working directory of the server. If <code>mysql_debug</code> is not set to File or FileAndConsole,
+then this option is useless. <code>%s</code> is replaced with the name of the resource, <code>%d</code> is replaced by a timestamp.
+(Default: <code>%s-%d.log</code>)</p>
 </span></div></div></div><div><div><h2 id="queries"><a href="#queries" aria-hidden="true"><span class="icon icon-link"></span></a>Queries</h2>
 <p>To run any kind of queries, you can access the exports of the resource, e.g. in JavaScript via <code>exports.ghmattimysql</code>.
 To learn more about accessing exports please refer to your respective scripting runtime in the
@@ -210,7 +217,8 @@ And the biggest polluter for this resource is sending overly long and complicate
 <p>While the server is running you want to minimize the impact of sending a lot of queries at once puts on your architecture,
 thus you can already store these queries ahead of time, and just pass the id returned by the callback function and pass the
 parameters for these queries along.</p>
-<pre class="language-typescript"><code class="language-typescript"><span class="token function">store</span><span class="token punctuation">(</span>query<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> callback<span class="token operator">?</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span></code></pre>
+<pre class="language-typescript"><code class="language-typescript"><span class="token function">store</span><span class="token punctuation">(</span>query<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> callback<span class="token operator">?</span><span class="token operator">:</span> <span class="token keyword">function</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span>
+<span class="token function">storeSync</span><span class="token punctuation">(</span>query<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span></code></pre>
 <p>As an example you can see here</p>
 <pre class="language-js"><code class="language-js"><span class="token keyword">let</span> myQueryId <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
 exports<span class="token punctuation">.</span><span class="token property-access">ghmattimysql</span><span class="token punctuation">.</span><span class="token method function property-access">store</span><span class="token punctuation">(</span><span class="token string">'SELECT identifier, cash, online FROM users WHERE ?'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">storeId</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span>
