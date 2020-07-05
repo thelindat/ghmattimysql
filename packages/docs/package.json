@@ -1,6 +1,6 @@
 {
   "name": "ghmattimysql-docs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "generator for docs for ghmattimysql",
   "private": true,
   "scripts": {
