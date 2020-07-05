@@ -14,6 +14,7 @@ parameters for these queries along.
 
 ```typescript
 store(query: string, callback?: function): void
+storeSync(query: string): number
 ```
 
 As an example you can see here
