@@ -13,6 +13,9 @@
   <a href="https://discord.gg/AXcxRjt">
     <img src="https://discordapp.com/api/guilds/715484005343952986/widget.png" alt="Chat">
   </a>
+  <a href="https://www.patreon.com/GHMatti">
+    <img src="https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fghmatti-patreon-endpoint.herokuapp.com%2Fghmatti&amp;style=for-the-badge" alt="Patreon">
+  </a>
 </p>
 
 ### Introduction
