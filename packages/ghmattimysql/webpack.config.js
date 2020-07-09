@@ -43,13 +43,4 @@ const serverConfig = {
   ...baseConfig,
 };
 
-const clientConfig = {
-  entry: './src/entry/client.ts',
-  output: {
-    filename: 'ghmattimysql-client.js',
-    path: path.resolve(__dirname, '../../dist/ghmattimysql'),
-  },
-  ...baseConfig,
-};
-
-module.exports = [ serverConfig, clientConfig ];
+module.exports = serverConfig;

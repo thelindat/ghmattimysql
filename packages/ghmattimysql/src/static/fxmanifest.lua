@@ -12,7 +12,7 @@ server_scripts {
   'ghmattimysql-server.lua',
 }
 
-client_script 'ghmattimysql-client.js'
+client_script 'ghmattimysql-client.lua'
 
 files {
   'ui/index.html',
