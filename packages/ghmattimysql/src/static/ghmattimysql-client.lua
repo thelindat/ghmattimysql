@@ -73,9 +73,9 @@ AddEventHandler('ghmattimysql:update-resource-data', function (resourceData)
     SendNUIMessage({
       type = 'onResourceData',
       resourceData = {
-        { data  = map(arrayToSortAndMap, function(el) return el.queryTime end) },
-        { data  = map(arrayToSortAndMap, function(el) if el.count > 0 then return el.queryTime / el.count end return 0 end) },
-        { data  = map(arrayToSortAndMap, function(el) return el.count end) },
+        { data = map(arrayToSortAndMap, function(el) return el.queryTime end) },
+        { data = map(arrayToSortAndMap, function(el) if el.count > 0 then return el.queryTime / el.count end return 0 end) },
+        { data = map(arrayToSortAndMap, function(el) return el.count end) },
       },
     })
   end
