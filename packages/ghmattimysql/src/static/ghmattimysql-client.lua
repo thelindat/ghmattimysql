@@ -45,7 +45,7 @@ function filter(table, callback)
   local newTable = {}
   for i = 1, #table do
     if callback(table[i], i) then
-      newTable[i] = table[i]
+      table.insert(newTable, table[i])
     end
   end
   return newTable
