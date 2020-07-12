@@ -16,7 +16,7 @@ function getConfigFromConnectionString() {
       const equal = el.indexOf('=');
       const key = (equal > -1) ? el.substr(0, equal) : el;
       const value = (equal > -1) ? el.substr(equal + 1) : '';
-      cfg[key] = (Number.isNaN(Number(value))) ? value : Number(value);
+      cfg[key.trim()] = (Number.isNaN(Number(value))) ? value : Number(value);
     });
   } else if (/mysql:\/\//gi.test(connectionString)) {
     cfg = parseUrl(connectionString);
