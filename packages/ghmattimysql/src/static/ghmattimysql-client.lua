@@ -19,9 +19,9 @@ RegisterNUICallback('close-explorer', function()
   setNuiActive(false)
 end)
 
-Citizen.CreateThread(function()
+CreateThread(function()
   if isNuiActive then TriggerServerEvent('ghmattimysql:request-data') end
-  Citizen.Wait(300000)
+  Wait(300000)
 end)
 
 function isArray(t)
@@ -33,19 +33,19 @@ function isArray(t)
   return true
 end
 
-function map(table, callback)
+function map(t, callback)
   local newTable = {}
-  for i = 1, #table do
-    newTable[i] = callback(table[i], i)
+  for i = 1, #t do
+    newTable[i] = callback(t[i], i)
   end
   return newTable
 end
 
-function filter(table, callback)
+function filter(t, callback)
   local newTable = {}
-  for i = 1, #table do
-    if callback(table[i], i) then
-      table.insert(newTable, table[i])
+  for i = 1, #t do
+    if callback(t[i], i) then
+      table.insert(newTable, t[i])
     end
   end
   return newTable
@@ -110,4 +110,37 @@ AddEventHandler('ghmattimysql:update-slow-queries', function(slowQueryData)
     type = 'onSlowQueryData',
     slowQueries = slowQueries,
   });
+end)
+
+RegisterNetEvent('ghmattimysql:update-status')
+AddEventHandler('ghmattimysql:update-status', function(statusData)
+  SendNUIMessage({
+    type = 'onStatusData',
+    status = statusData,
+  });
+end)
+
+RegisterNetEvent('ghmattimysql:update-variables')
+AddEventHandler('ghmattimysql:update-variables', function(variableData)
+  SendNUIMessage({
+    type = 'onVariableData',
+    variables = variableData,
+  });
+end)
+
+RegisterNUICallback('request-server-status', function()
+  TriggerServerEvent('ghmattimysql:request-server-status')
+end)
+
+RegisterNetEvent('ghmattimysql:get-table-schema')
+AddEventHandler('ghmattimysql:get-table-schema', function(tableName, schema)
+  SendNUIMessage({
+    type = 'onTableSchema',
+    tableName = tableName,
+    schema = schema,
+  });
+end)
+
+RegisterNUICallback('request-table-schema', function(tableName)
+  TriggerServerEvent('ghmattimysql:request-table-schema', tableName)
 end)

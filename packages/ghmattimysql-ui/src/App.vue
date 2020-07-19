@@ -54,6 +54,11 @@
             </m-data-table>
           </div>
         </m-tab-item>
+        <m-tab-item label="Server Status" icon="settings_applications">
+          <div class="p-2" style="height: 480px;">
+            <m-server-status />
+          </div>
+        </m-tab-item>
       </m-tabs>
       <div class="h-8 bg-black w-full rounded-b-md" />
     </div>
@@ -65,6 +70,7 @@ import MAppBar from './components/MAppBar.vue';
 import MChart from './components/MChart.vue';
 import MDataTable from './components/MDataTable.vue';
 import MIcon from './components/MIcon.vue';
+import MServerStatus from './components/MServerStatus.vue';
 import MTabs from './components/MTabs.vue';
 import MTabItem from './components/MTabItem.vue';
 
@@ -74,6 +80,7 @@ export default {
     MChart,
     MDataTable,
     MIcon,
+    MServerStatus,
     MTabs,
     MTabItem,
   },
@@ -143,9 +150,7 @@ export default {
     close() {
       fetch('http://ghmattimysql/close-explorer', {
         method: 'post',
-        body: JSON.stringify({
-          close: true,
-        }),
+        body: JSON.stringify({ close: true }),
       });
     },
     onToggleShow() {

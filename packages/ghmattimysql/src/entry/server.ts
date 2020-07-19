@@ -56,3 +56,17 @@ onNet('ghmattimysql:request-data', () => {
   emitNet('ghmattimysql:update-time-data', src, server.profiler.profiles.executionTimes);
   emitNet('ghmattimysql:update-slow-queries', src, server.profiler.profiles.slowQueries);
 });
+
+onNet('ghmattimysql:request-server-status', () => {
+  const src = source;
+  server.execute('SHOW GLOBAL STATUS', (data: unknown) => {
+    emitNet('ghmattimysql:update-status', src, data);
+  }, null, 'ghmattimysql').then(([result, cb]) => {
+    cb(result);
+  }).catch(() => false);
+  server.execute('SHOW GLOBAL VARIABLES', (data: unknown) => {
+    emitNet('ghmattimysql:update-variables', src, data);
+  }, null, 'ghmattimysql').then(([result, cb]) => {
+    cb(result);
+  }).catch(() => false);
+});
