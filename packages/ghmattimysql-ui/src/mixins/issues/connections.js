@@ -4,7 +4,7 @@ import Issue from './issue';
 
 class ConnectionIssue extends Issue {
   constructor({ Connections, Uptime }) {
-    super('Full Table Scan');
+    super('Connections');
     if ((Connections / Uptime) > 0.25) this.display = true;
     this.message = `
       ${((Connections / Uptime) * 3600).toFixed(2)} / h --
