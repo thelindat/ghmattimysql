@@ -6,12 +6,11 @@
     
       <b-collapse id="navbarSupportedContent" is-nav>
         <b-navbar-nav class="mr-auto">
-          <b-nav-item href="#about">About</b-nav-item>
-          <b-nav-item href="#setup">Setup</b-nav-item>
-          <b-nav-item href="#configuration">Configuration</b-nav-item>
-          <b-nav-item href="#queries">Queries</b-nav-item>
-          <b-nav-item href="#transactions">Transactions</b-nav-item>
-          <b-nav-item href="#gui--dev">GUI &amp; Dev</b-nav-item>
+          <b-nav-item href="/">About</b-nav-item>
+          <b-nav-item href="/setup">Quick Setup</b-nav-item>
+          <b-nav-item href="/config">Config</b-nav-item>
+          <b-nav-item href="/queries">Querying</b-nav-item>
+          <b-nav-item href="/gui">GUI &amp; Dev</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
