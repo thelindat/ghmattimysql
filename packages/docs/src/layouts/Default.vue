@@ -6,11 +6,11 @@
     
       <b-collapse id="navbarSupportedContent" is-nav>
         <b-navbar-nav class="mr-auto">
-          <b-nav-item href="/">About</b-nav-item>
-          <b-nav-item href="/setup">Quick Setup</b-nav-item>
-          <b-nav-item href="/config">Config</b-nav-item>
-          <b-nav-item href="/queries">Querying</b-nav-item>
-          <b-nav-item href="/gui">GUI &amp; Dev</b-nav-item>
+          <g-link to="/" class="nav-link">About</g-link>
+          <g-link to="/setup/" class="nav-link">Quick Setup</g-link>
+          <g-link to="/config/" class="nav-link">Config</g-link>
+          <g-link to="/queries/" class="nav-link">Querying</g-link>
+          <g-link to="/gui/" class="nav-link">GUI &amp; Dev</g-link>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
