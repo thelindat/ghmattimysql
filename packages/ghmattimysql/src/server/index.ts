@@ -1,4 +1,4 @@
-import { PoolConfig } from 'mysql';
+import { PoolOptions } from 'mysql2';
 import CFXCallback from './types/cfxCallback';
 import { sanitizeInput, typeCast, sanitizeTransactionInput } from './utility';
 import MySQL from './mysql';
@@ -7,6 +7,7 @@ import Logger from './logger';
 import Profiler from './profiler';
 import queryStorage from './queryStore';
 import { LoggerConfig } from './logger/loggerConfig';
+import { rejects } from 'assert';
 
 class Server {
   logger: Logger;
@@ -17,7 +18,7 @@ class Server {
 
   queryStorage: QueryStringStorage;
 
-  constructor(config: PoolConfig, loggerOverrides: LoggerConfig = {}) {
+  constructor(config: PoolOptions, loggerOverrides: LoggerConfig = {}) {
     this.logger = new Logger(GetConvar('mysql_debug', 'None'), { ...loggerOverrides, logLevel: GetConvarInt('mysql_log_level', 15) });
     this.profiler = new Profiler({ slowQueryWarningTime: GetConvarInt('mysql_slow_query_warning', 150) }, this.logger);
     this.mysql = new MySQL(config, this.profiler, this.logger);
@@ -35,10 +36,10 @@ class Server {
     let cb = callback;
     [sql, values, cb] = sanitizeInput(sql, values, cb);
 
-    return new Promise<[unknown, CFXCallback]>((resolve) => {
+    return new Promise<[unknown, CFXCallback]>((resolve, reject) => {
       this.mysql.execute({ sql, values, typeCast }, resource).then((result) => {
         resolve([result, cb]);
-      });
+      }).catch(err => { throw new Error(`See Info-Message for full information: ${err.message}`); reject(err)});
     });
   }
 

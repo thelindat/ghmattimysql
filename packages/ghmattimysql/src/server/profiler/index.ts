@@ -85,6 +85,7 @@ class Profiler {
   }
 
   profile(time: [number, number], sql: string, resource: string) {
+    this.logger.log(`Profiling query: ${sql}`)
     const interval = Math.floor((Date.now() - this.startTime) / this.config.timeInterval);
     const queryTime = time[0] * 1e3 + time[1] * 1e-6;
 
@@ -107,6 +108,8 @@ class Profiler {
     } else {
       this.logger.log(`[${resource}] [${queryTime.toFixed()}ms] ${sql}`, { tag: this.version });
     }
+    this.logger.log("Current profiles:")
+    this.logger.log(JSON.stringify(this.profiles, null, 2))
   }
 }
 

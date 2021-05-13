@@ -1,5 +1,5 @@
 import { parseUrl } from 'mysql/lib/ConnectionConfig';
-import { PoolConfig } from 'mysql';
+import { PoolOptions } from 'mysql2';
 
 function getConfigFromConnectionString() {
   const connectionString = GetConvar('mysql_connection_string', 'mysql://root@localhost/fivem');
@@ -25,7 +25,7 @@ function getConfigFromConnectionString() {
   return cfg;
 }
 
-function getConfig(): PoolConfig {
+function getConfig(): PoolOptions {
   const config = JSON.parse(LoadResourceFile(GetCurrentResourceName(), 'config.json'));
   const configFromString = getConfigFromConnectionString();
   return config || configFromString;

@@ -19,7 +19,7 @@ global.exports('scalar', (query: string | number, parameters?: any | CFXCallback
   server.execute(query, parameters, callback, invokingResource).then(([result, cb]) => {
     safeInvoke(cb, (result && result[0]) ? Object.values(result[0])[0] : null);
     return true;
-  }).catch(() => false);
+  }).catch((error) => { throw new Error(`See Info-Message for full information: ${error.message}`);});
 });
 
 global.exports('execute', (query: string | number, parameters?: any | CFXCallback, callback?: CFXCallback, resource?: string): void => {
@@ -27,7 +27,7 @@ global.exports('execute', (query: string | number, parameters?: any | CFXCallbac
   server.execute(query, parameters, callback, invokingResource).then(([result, cb]) => {
     safeInvoke(cb, result);
     return true;
-  }).catch(() => false);
+  }).catch((error) => { throw new Error(`See Info-Message for full information: ${error.message}`); });
 });
 
 global.exports('transaction', (querys, values?: any | CFXCallback, callback?: CFXCallback, resource?: string) => {
